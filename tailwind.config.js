@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: 'class',
     content: ['./src/**/*.{html,js}'],
     theme: {
         extend: {
             colors: {
                 'primary-color-blue': '#141b2d',
                 'primary-color-rose': '#be123c',
+                'secondary-color-blue': '#bfdbfe',
+
             },
         },
 
