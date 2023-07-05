@@ -1,6 +1,7 @@
 import Navbar from './components/header/Navbar';
 import Content from './components/contentContainer/Content';
 import Footer from './components/footer/Footer';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
     return (
@@ -9,7 +10,9 @@ function App() {
                 <Navbar />
             </header>
             <main>
-                <Content />
+                <Routes>
+                    <Route path='/' element={<Content />} />
+                </Routes>
             </main>
             <footer>
                 <Footer />
