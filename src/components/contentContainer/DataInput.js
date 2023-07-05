@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoadingSvg from '../../assets/svgIcons/LoadingSvg';
 
 import useFetch from '../../hooks/useFetch';
@@ -8,6 +8,10 @@ const DataInput = () => {
     const [url, setUrl] = useState(null);
 
     const { data, isLoading, error } = useFetch(url);
+
+    useEffect(() => {
+        if (data) localStorage.setItem('tableData', JSON.stringify(data));
+    }, [data]);
 
     const submitHandler = event => {
         event.preventDefault();
