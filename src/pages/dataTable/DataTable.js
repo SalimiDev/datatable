@@ -1,11 +1,14 @@
-import { useEffect, useState, useContext, useMemo } from 'react';
-import { Box, Avatar } from '@mui/material';
+import { useEffect, useState, useContext, memo } from 'react';
+import { Box } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import GlobalStyles from '@mui/material/GlobalStyles';
+import { GlobalStyles } from '@mui/material';
 
-import { DarkModeContext } from '../context/DarkModeContext';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
-const DataTable = () => {
+//configuration of table columns
+import columns from './tableColumns';
+
+const DataTable = memo(() => {
     const [data, setData] = useState([]);
     const { isDarkMode } = useContext(DarkModeContext);
 
@@ -19,68 +22,7 @@ const DataTable = () => {
         setData(getStorageData);
     }, []);
 
-    const columns = useMemo(
-        () => [
-            { field: 'id', headerName: 'ID', flex: 0.5 },
-            {
-                field: 'avatar',
-                headerName: 'Avatar',
-                width: 60,
-                flex: 0.5,
-                renderCell: params => <Avatar src={params?.row.avatar} />,
-                sortable: false,
-                filterable: false,
-            },
-            {
-                field: 'name',
-                headerName: 'Name',
-                flex: 1,
-                cellClassName: 'name-column--cell',
-            },
-            {
-                field: 'username',
-                headerName: 'Username',
-                type: 'number',
-                headerAlign: 'left',
-                align: 'left',
-            },
-            {
-                field: 'phone',
-                headerName: 'Phone Number',
-                flex: 1,
-            },
-            {
-                field: 'email',
-                headerName: 'Email',
-                flex: 1,
-            },
-            {
-                field: 'country',
-                headerName: 'Country',
-                flex: 1,
-                valueGetter: params => params.row?.address?.country,
-            },
-            {
-                field: 'city',
-                headerName: 'City',
-                flex: 1,
-                valueGetter: params => params.row?.address?.city,
-            },
-            {
-                field: 'street',
-                headerName: 'Street',
-                flex: 1,
-                valueGetter: params => params.row?.address?.street,
-            },
-            {
-                field: 'number',
-                headerName: 'Zip Code',
-                flex: 1,
-                valueGetter: params => params.row?.address?.number,
-            },
-        ],
-        [],
-    );
+    //
 
     return (
         <Box m='20px'>
@@ -91,7 +33,7 @@ const DataTable = () => {
                         width: '0.4em',
                     },
                     '*::-webkit-scrollbar-track': {
-                        '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
+                        boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
                     },
                     '*::-webkit-scrollbar-thumb': {
                         backgroundColor: 'rgba(0,0,0,.1)',
@@ -152,6 +94,6 @@ const DataTable = () => {
             </Box>
         </Box>
     );
-};
+});
 
 export default DataTable;

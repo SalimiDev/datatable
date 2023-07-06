@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import DataInput from './DataInput';
-import DataTable from '../../pages/DataTable';
+import DataTable from '../../pages/dataTable/DataTable';
 
 const Content = () => {
     return (
