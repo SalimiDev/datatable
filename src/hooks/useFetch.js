@@ -11,9 +11,10 @@ const useFetch = url => {
             if (url) setIsLoading(true);
             try {
                 const response = await axios.get(url);
-                setData(response.data);
+                setData(response);
+                localStorage.setItem('tableData', JSON.stringify(response.data));
             } catch (error) {
-                if (url) setError(true);
+                setError(true);
             } finally {
                 setIsLoading(false);
             }

@@ -1,10 +1,14 @@
-import DataInput from "./DataInput";
+import { Routes, Route } from 'react-router-dom';
+
+import DataInput from './DataInput';
+import DataTable from '../../pages/DataTable';
 
 const Content = () => {
     return (
-        <div>
-            <DataInput/>
-        </div>
+        <Routes>
+            <Route path='/' element={<DataInput />} />
+            <Route path='/pageTable' element={<DataTable />} />
+        </Routes>
     );
 };
 
