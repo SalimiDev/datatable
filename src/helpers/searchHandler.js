@@ -8,7 +8,7 @@ export const searchHandler = inputValue => {
 
     return storageData.filter(item => {
         // Customize the properties to search within each object
-        const propertiesToSearch = ['name', 'country', 'email', 'username', 'phone', 'email'];
+        const propertiesToSearch = ['name', 'country', 'email', 'username', 'phone', ];
 
         for (let property of propertiesToSearch) {
             if (item[property] && item[property].toString().toLowerCase().includes(searchedKeyWord)) {

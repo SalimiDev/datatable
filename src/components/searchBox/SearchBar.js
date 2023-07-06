@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import SearchIconSvg from '../../assets/svgIcons/SearchIconSvg';
-
 import { searchHandler } from '../../helpers/searchHandler';
+
+import SearchIconSvg from '../../assets/svgIcons/SearchIconSvg';
 
 const SearchBar = ({ setSearchData }) => {
     const [inputValue, setInputValue] = useState('');

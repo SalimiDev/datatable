@@ -10,6 +10,7 @@ const DataInput = () => {
 
     const { data, isLoading, error } = useFetch(url);
 
+    //send input value to useFetch hook due to getting data
     const submitHandler = event => {
         event.preventDefault();
         setUrl(inputValue);

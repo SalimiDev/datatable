@@ -1,6 +1,7 @@
+//context
 import { useContext } from 'react';
 import { DarkModeContext } from '../../context/DarkModeContext';
-
+//icons
 import { HiOutlineSun, HiOutlineMoon } from 'react-icons/hi';
 
 const DarkMode = () => {
