@@ -20,7 +20,8 @@ const useFetch = url => {
             }
         };
 
-        fetchData();
+        if (url) fetchData();
+        setError(false);
     }, [url]);
 
     return { data, isLoading, error };

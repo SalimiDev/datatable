@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingSvg from '../../assets/svgIcons/LoadingSvg';
+import { notify } from '../toast/notify';
 
 import useFetch from '../../hooks/useFetch';
 const DataInput = () => {
@@ -13,6 +14,11 @@ const DataInput = () => {
         event.preventDefault();
         setUrl(inputValue);
     };
+
+    // throw error
+    useEffect(() => {
+        if (error) notify('error', 'Invalid data!');
+    }, [error]);
 
     const navigate = useNavigate();
     data?.status === 200 && !isLoading && navigate('/pageTable');
@@ -29,8 +35,8 @@ const DataInput = () => {
                 required
             />
             <button type='submit' className='btn'>
-                <LoadingSvg />
-                Loading...
+                {isLoading && <LoadingSvg />}
+                {isLoading ? 'Loading...' : 'CHEACK!'}
             </button>
         </form>
     );
