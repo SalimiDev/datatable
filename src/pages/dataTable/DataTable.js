@@ -4,12 +4,15 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { GlobalStyles } from '@mui/material';
 
 import { DarkModeContext } from '../../context/DarkModeContext';
+import SearchBar from '../../components/searchBox/SearchBar';
 
 //configuration of table columns
 import columns from './tableColumns';
 
 const DataTable = memo(() => {
     const [data, setData] = useState([]);
+    const [searchData, setSearchData] = useState([]);
+
     const { isDarkMode } = useContext(DarkModeContext);
 
     const [paginationModel, setPaginationModel] = useState({
@@ -21,8 +24,6 @@ const DataTable = memo(() => {
         const getStorageData = JSON.parse(localStorage.getItem('tableData'));
         setData(getStorageData);
     }, []);
-
-    //
 
     return (
         <Box m='20px'>
@@ -41,6 +42,7 @@ const DataTable = memo(() => {
                     },
                 }}
             />
+            <SearchBar setSearchData={setSearchData} />
             <Box
                 m='40px 0 0 0'
                 height='55vh'
@@ -84,7 +86,7 @@ const DataTable = memo(() => {
                     },
                 }}>
                 <DataGrid
-                    rows={data}
+                    rows={searchData.length > 0 ? searchData : data}
                     columns={columns}
                     components={{ Toolbar: GridToolbar }}
                     paginationModel={paginationModel}

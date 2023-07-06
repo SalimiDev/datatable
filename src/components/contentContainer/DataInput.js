@@ -26,6 +26,7 @@ const DataInput = () => {
                 onChange={e => setInputValue(e.target.value)}
                 placeholder='Enter your data url'
                 className='input'
+                required
             />
             <button type='submit' className='btn'>
                 <LoadingSvg />
