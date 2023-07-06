@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchIconSvg from '../../assets/svgIcons/SearchIconSvg';
 
 import { searchHandler } from '../../helpers/searchHandler';
@@ -6,13 +6,13 @@ import { searchHandler } from '../../helpers/searchHandler';
 const SearchBar = ({ setSearchData }) => {
     const [inputValue, setInputValue] = useState('');
 
-    const submitHandler = event => {
-        event.preventDefault();
-        setSearchData(searchHandler(inputValue)); //=>set result of the searching data to the state in DataTable
-    };
+    //handle to show search result when user is typing
+    useEffect(() => {
+        setSearchData(searchHandler(inputValue));
+    }, [inputValue, setSearchData]);
 
     return (
-        <form onSubmit={submitHandler}>
+        <form>
             <label for='default-search' class='mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white'>
                 Search
             </label>
@@ -30,11 +30,6 @@ const SearchBar = ({ setSearchData }) => {
                     placeholder='Search All Data, Name, Username...'
                     required
                 />
-                <button
-                    type='submit'
-                    class='text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                    Search
-                </button>
             </div>
         </form>
     );
