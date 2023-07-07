@@ -1,21 +1,24 @@
-import { useEffect, useState, useContext, memo } from 'react';
+import { useEffect, useState, useContext, memo, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { Box, Button } from '@mui/material';
 import { GlobalStyles } from '@mui/material';
 
 import { DarkModeContext } from '../../context/DarkModeContext';
 import SearchBar from '../../components/searchBox/SearchBar';
-
-//configuration of table columns
-import columns from './tableColumns';
+import generateColumns from './tableColumns';
 
 const DataTable = memo(() => {
     const [data, setData] = useState([]);
     const [searchData, setSearchData] = useState([]);
 
+    //get darkMode status
     const { isDarkMode } = useContext(DarkModeContext);
 
+    // generate culomns
+    const columns = useMemo(() => generateColumns(data[0]), [data]);
+
+    //pagination model
     const [paginationModel, setPaginationModel] = useState({
         pageSize: 5,
         page: 0,

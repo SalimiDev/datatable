@@ -1,63 +1,35 @@
-import { Avatar } from '@mui/material';
+function generateColumns(item) {
+    const columns = [];
 
-const columns = [
-    { field: 'id', headerName: 'ID', flex: 0.5 },
-    {
-        field: 'avatar',
-        headerName: 'Avatar',
-        width: 60,
-        flex: 0.5,
-        renderCell: params => <Avatar src={params?.row.avatar} />,
-        sortable: false,
-        filterable: false,
-    },
-    {
-        field: 'name',
-        headerName: 'Name',
-        flex: 1,
-        cellClassName: 'name-column--cell',
-    },
-    {
-        field: 'username',
-        headerName: 'Username',
-        type: 'number',
-        headerAlign: 'left',
-        align: 'left',
-    },
-    {
-        field: 'phone',
-        headerName: 'Phone Number',
-        flex: 1,
-    },
-    {
-        field: 'email',
-        headerName: 'Email',
-        flex: 1,
-    },
-    {
-        field: 'country' || 'street',
-        headerName: 'Country',
-        flex: 1,
-        valueGetter: params => params.row?.address?.country || params.row?.address?.street,
-    },
-    {
-        field: 'city',
-        headerName: 'City',
-        flex: 1,
-        valueGetter: params => params.row?.address?.city,
-    },
-    {
-        field: 'street',
-        headerName: 'Street',
-        flex: 1,
-        valueGetter: params => params.row?.address?.street,
-    },
-    {
-        field: 'number' || 'zipcode',
-        headerName: 'Zip Code',
-        flex: 1,
-        valueGetter: params => params.row?.address?.number || params.row?.address?.zipcode,
-    },
-];
+    for (const key in item) {
+        if (key === 'avatar' || key === 'geo') {
+            continue; // Skip the "avatar" and "geo" keys
+        }
 
-export default columns;
+        if (typeof item[key] === 'object') {
+            // Handle nested objects
+            const nestedColumns = generateColumns(item[key]);
+            nestedColumns.forEach(nestedColumn => {
+                // Push nested columns with updated field, headerName, and valueGetter
+                columns.push({
+                    field: `${key}.${nestedColumn.field}`,
+                    headerName: nestedColumn.headerName,
+                    width: 150,
+                    valueGetter: params => params.row[key][nestedColumn.field],
+                });
+            });
+        } else {
+            // Handle non-nested properties
+            const width = key === 'body' || key === 'description' ? 500 : 150;
+            columns.push({
+                field: key,
+                headerName: key,
+                width,
+            });
+        }
+    }
+
+    return columns;
+}
+
+export default generateColumns;
