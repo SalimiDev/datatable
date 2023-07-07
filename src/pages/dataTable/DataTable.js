@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext, memo } from 'react';
-import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { GlobalStyles } from '@mui/material';
 
@@ -25,6 +26,22 @@ const DataTable = memo(() => {
         setData(getStorageData);
     }, []);
 
+    const navigate = useNavigate();
+
+    if (!localStorage.getItem('tableData'))
+        return (
+            <div className='flex justify-center text-center'>
+                <div>
+                    <h1 className='mb-4 font-bold '>Oops!</h1>
+                    <h3 className='mb-9 font-bold'>
+                        Data you are lokking for is not exist , please back to home and search it again!
+                    </h3>
+                    <Button variant='contained' onClick={() => navigate('/')}>
+                        Back Home
+                    </Button>
+                </div>
+            </div>
+        );
     return (
         <Box m='20px'>
             <GlobalStyles
