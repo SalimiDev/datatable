@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     return (
-        <div className='h-screen w-full flex flex-col justify-between bg-secondary-color-blue dark:bg-primary-color-blue dark:text-secondary-color-blue'>
+        <div className='h-screen w-full flex flex-col justify-between overflow-auto bg-secondary-color-blue dark:bg-primary-color-blue dark:text-secondary-color-blue'>
             <header>
             <ToastContainer  theme="dark"/>
                 <Navbar />
