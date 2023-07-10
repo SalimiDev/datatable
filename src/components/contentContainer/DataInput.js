@@ -36,9 +36,9 @@ const DataInput = () => {
                     className='input'
                     required
                 />
-                <button type='submit' className='btn'>
+                <button type='submit' className='btn mt-10'>
                     {isLoading && <LoadingSvg />}
-                    {isLoading ? 'Loading...' : 'CHEACK!'}
+                    {isLoading ? 'Loading...' : 'CHEACK DATA!'}
                 </button>
             </form>
             <div className='flex justify-center mt-3'>
