@@ -1,22 +1,27 @@
 import { useEffect, useState, useContext, memo, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { GlobalStyles } from '@mui/material';
 
 import { DarkModeContext } from '../../context/DarkModeContext';
 import SearchBar from '../../components/searchBox/SearchBar';
-import generateColumns from './tableColumns';
+import generateMuiColumns from './generateMuiColumns';
+import generateTableData from '../../helpers/generateTableData';
 
-const DataTable = memo(() => {
+const DataTableMaterial = memo(() => {
     const [data, setData] = useState([]);
     const [searchData, setSearchData] = useState([]);
+
+    const tableData = generateTableData(data);
+    const tableColumns = Object.keys(tableData[0] || []);
 
     //get darkMode status
     const { isDarkMode } = useContext(DarkModeContext);
 
     // generate culomns
-    const columns = useMemo(() => generateColumns(data[0]), [data]);
+    const columns = useMemo(() => generateMuiColumns(data[0]), [data]);
 
     //pagination model
     const [paginationModel, setPaginationModel] = useState({
@@ -31,20 +36,6 @@ const DataTable = memo(() => {
 
     const navigate = useNavigate();
 
-    if (!localStorage.getItem('tableData'))
-        return (
-            <div className='flex justify-center text-center'>
-                <div>
-                    <h1 className='mb-4 font-bold '>Oops!</h1>
-                    <h3 className='mb-9 font-bold'>
-                        Data you are lokking for is not exist , please back to home and search it again!
-                    </h3>
-                    <Button variant='contained' onClick={() => navigate('/')}>
-                        Back Home
-                    </Button>
-                </div>
-            </div>
-        );
     return (
         <Box m='20px'>
             <GlobalStyles
@@ -62,7 +53,7 @@ const DataTable = memo(() => {
                     },
                 }}
             />
-            <SearchBar setSearchData={setSearchData} />
+            <SearchBar setSearchData={setSearchData} tableColumns={tableColumns} dataToSearch={data} />
             <Box
                 m='40px 0 0 0'
                 height='55vh'
@@ -106,7 +97,7 @@ const DataTable = memo(() => {
                     },
                 }}>
                 <DataGrid
-                    rows={searchData.length > 0 ? searchData : data}
+                    rows={searchData?.length > 0 ? searchData : data}
                     columns={columns}
                     components={{ Toolbar: GridToolbar }}
                     paginationModel={paginationModel}
@@ -114,8 +105,15 @@ const DataTable = memo(() => {
                     pageSizeOptions={[5, 10, 25]}
                 />
             </Box>
+
+            <div className='w-fit mx-auto flex flex-col gap-3 mt-6 text-center'>
+                <h6>Do you want to see this table with pure styling and functionality?</h6>
+                <button onClick={()=>navigate('/pagetablepure')} className='btn flex mx-auto'>
+                    Go to next page
+                </button>
+            </div>
         </Box>
     );
 });
 
-export default DataTable;
+export default DataTableMaterial;

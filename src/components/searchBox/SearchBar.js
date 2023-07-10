@@ -3,12 +3,12 @@ import { searchHandler } from '../../helpers/searchHandler';
 
 import SearchIconSvg from '../../assets/svgIcons/SearchIconSvg';
 
-const SearchBar = ({ setSearchData }) => {
+const SearchBar = ({ setSearchData, tableColumns, dataToSearch }) => {
     const [inputValue, setInputValue] = useState('');
 
     //handle to show search result when user is typing
     useEffect(() => {
-        setSearchData(searchHandler(inputValue));
+        setSearchData(searchHandler(inputValue, tableColumns, dataToSearch));
     }, [inputValue, setSearchData]);
 
     return (

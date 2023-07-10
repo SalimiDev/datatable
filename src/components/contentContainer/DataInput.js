@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import LoadingSvg from '../../assets/svgIcons/LoadingSvg';
 import { notify } from '../toast/notify';
 
@@ -22,24 +22,35 @@ const DataInput = () => {
     }, [error]);
 
     const navigate = useNavigate();
-    data?.status === 200 && !isLoading && navigate('/pageTable');
+    data?.status === 200 && !isLoading && navigate('/pagetablematerial');
 
     return (
-        <form onSubmit={submitHandler} className='h-9 flex flex-col items-center gap-5 mx-4 xl:flex-row xl:mx-72'>
-            <input
-                type='text'
-                name='url'
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                placeholder='Enter your data url'
-                className='input'
-                required
-            />
-            <button type='submit' className='btn'>
-                {isLoading && <LoadingSvg />}
-                {isLoading ? 'Loading...' : 'CHEACK!'}
-            </button>
-        </form>
+        <div className='flex flex-col gap-3'>
+            <form onSubmit={submitHandler} className='h-9 flex flex-col items-center gap-5 mx-4 xl:flex-row xl:mx-72'>
+                <input
+                    type='text'
+                    name='url'
+                    value={inputValue}
+                    onChange={e => setInputValue(e.target.value)}
+                    placeholder='Enter your data url'
+                    className='input'
+                    required
+                />
+                <button type='submit' className='btn'>
+                    {isLoading && <LoadingSvg />}
+                    {isLoading ? 'Loading...' : 'CHEACK!'}
+                </button>
+            </form>
+            <div className='flex justify-center mt-3'>
+                <h2>
+                    Or{' '}
+                    <Link to={'/draganddrop'} className='text-blue-600 underline font-poppins font-bold'>
+                        Upload
+                    </Link>{' '}
+                    your data
+                </h2>
+            </div>
+        </div>
     );
 };
 

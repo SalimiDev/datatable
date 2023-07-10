@@ -1,14 +1,13 @@
-export const searchHandler = inputValue => {
+export const searchHandler = (inputValue, tableColumns, dataToSearch) => {
     const storageData = JSON.parse(localStorage.getItem('tableData'));
-    const searchedKeyWord = inputValue.trim().toLowerCase();
-
+    const searchedKeyWord = inputValue?.trim()?.toLowerCase();
+    // console.log(columnItem)
     if (!searchedKeyWord) {
-        return storageData; // No keyword provided, return the original data
+        return dataToSearch; // No keyword provided, return the original data
     }
-
-    return storageData.filter(item => {
+    return dataToSearch?.filter(item => {
         // Customize the properties to search within each object
-        const propertiesToSearch = ['name', 'country', 'email', 'username', 'phone', ];
+        const propertiesToSearch = tableColumns;
 
         for (let property of propertiesToSearch) {
             if (item[property] && item[property].toString().toLowerCase().includes(searchedKeyWord)) {

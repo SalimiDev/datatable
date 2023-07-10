@@ -1,4 +1,4 @@
-function generateColumns(item) {
+function generateMuiColumns(item) {
     const columns = [];
 
     for (const key in item) {
@@ -8,7 +8,7 @@ function generateColumns(item) {
 
         if (typeof item[key] === 'object') {
             // Handle nested objects
-            const nestedColumns = generateColumns(item[key]);
+            const nestedColumns = generateMuiColumns(item[key]);
             nestedColumns.forEach(nestedColumn => {
                 // Push nested columns with updated field, headerName, and valueGetter
                 columns.push({
@@ -32,4 +32,4 @@ function generateColumns(item) {
     return columns;
 }
 
-export default generateColumns;
+export default generateMuiColumns;

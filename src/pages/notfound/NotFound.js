@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import notFound from '../assets/notfound.png';
+import notFound from '../../assets/notfound.png';
 import { useNavigate } from 'react-router-dom';
 
 const NotFound = () => {
