@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-//components
+// components
 import SearchBar from '../../components/searchBox/SearchBar';
 import ShowItemsDropdown from './ShowItemsDropdown';
+import RenderPageNumbers from './RenderPageNumbers';
 import DataRangeDisplay from './DataRangeDisplay';
 // helpers
 import { searchHandler } from '../../helpers/searchHandler';
 import generateTableData from '../../helpers/generateTableData';
-//custom hooks
+// custom hooks
 import usePagination from '../../hooks/usePagination';
-//icons
+// icons
 import { FaSortUp } from 'react-icons/fa';
 import { FaSortDown } from 'react-icons/fa';
 
 const DataTablePure = () => {
-    //states
+    // states
     const [data, setData] = useState([]);
     const [searchData, setSearchData] = useState([]);
     const [inputValue, setInputValue] = useState('');
@@ -29,12 +30,12 @@ const DataTablePure = () => {
         setData(getStorageData);
     }, []);
 
-    //handle to initializing first data
+    // handle to initializing first data
     useEffect(() => {
         !searchData?.length && setSearchData(tableData);
     }, [tableData]);
 
-    //handle to search invidually for each column
+    // handle to search individually for each column
     const columnSearcher = e => {
         const { name, value } = e.target;
         setInputValue({ [name]: value });
@@ -71,7 +72,7 @@ const DataTablePure = () => {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <div className='overflow-x-hidden'>
             <div className='relative h-[55vh] overflow-x-auto overflow-y-hidden shadow-md sm:rounded-lg mx-8 mt-10  bg-white dark:bg-gray-800'>
                 <div className='sticky left-0 flex items-center justify-between gap-2 pb-4 bg-secondary-color-blue dark:bg-primary-color-blue '>
                     <ShowItemsDropdown itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage} />
@@ -86,16 +87,16 @@ const DataTablePure = () => {
                 {/* ***********Table************/}
 
                 <table className='w-full text-sm  text-left text-gray-500 dark:text-gray-400  '>
-                    <div className='max-h-[45vh] overflow-y-scroll overflow-x-hidden '>
+                    <div className='max-h-[45vh] overflow-y-auto overflow-x-hidden'>
                         <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
                             <tr>
                                 {data.length > 0 &&
                                     tableColumns.map(key => (
-                                        <th className='px-6 py-4 cursor-pointer ' key={key}>
+                                        <th className='w-screen px-6 py-4 cursor-pointer' key={key}>
                                             <input
                                                 className={`flex justify-self-center ${
                                                     key === 'id' ? 'w-12' : 'w-60'
-                                                } mb-4 pl-3 py-1 text-xs font-thin border border-gray-300 rounded-lg  dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white   `}
+                                                } mb-4 pl-3 py-1 text-xs font-thin border border-gray-300 rounded-lg  dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white`}
                                                 key={key}
                                                 type='text'
                                                 name={key}
@@ -135,7 +136,7 @@ const DataTablePure = () => {
                                         key={i}
                                         className='bg-white  dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600'>
                                         {tableColumns?.map((column, index) => (
-                                            <td key={index} className='px-6 py-4 '>
+                                            <td key={index} className='px-6 py-4'>
                                                 {item[column]}
                                             </td>
                                         ))}
@@ -159,18 +160,8 @@ const DataTablePure = () => {
                         Previous
                     </button>
 
-                    {listOfPagesNumber?.map(number => (
-                        <li
-                            key={number}
-                            onClick={() => changePage(number)}
-                            className={`${
-                                number === currentPage
-                                    ? 'bg-slate-200 dark:bg-gray-700 dark:text-white '
-                                    : 'dark:bg-gray-800 dark:text-gray-400 text-gray-500 hover:bg-gray-100'
-                            } flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300   dark:border-gray-700  dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer`}>
-                            {number}
-                        </li>
-                    ))}
+                    {/* rendering pagination numbers */}
+                    <RenderPageNumbers items={{ totalPages, listOfPagesNumber, changePage, currentPage }} />
 
                     <button
                         onClick={goToNextPage}
@@ -185,7 +176,7 @@ const DataTablePure = () => {
 
             <div className='w-fit mx-auto flex flex-col gap-3 mt-6 text-center'>
                 <h6>Do you want to see this table with Material-UI styling?</h6>
-                <button onClick={()=>navigate('/pagetablematerial')}  className='btn flex mx-auto'>
+                <button onClick={() => navigate('/pagetablematerial')} className='btn flex mx-auto'>
                     Go to previous page
                 </button>
             </div>
