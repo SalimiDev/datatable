@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/payatask/static/css/main.8a2f87e9.css",
-    "main.js": "/payatask/static/js/main.93a27f68.js",
+    "main.js": "/payatask/static/js/main.05511676.js",
     "static/media/notfound.png": "/payatask/static/media/notfound.e8d815639feee58a9dc2.png",
     "static/media/headerLogo.png": "/payatask/static/media/headerLogo.42fa647f16284856661d.png",
     "static/media/footerLogo.png": "/payatask/static/media/footerLogo.7d77e2405c8f054e7dc3.png",
     "index.html": "/payatask/index.html",
     "main.8a2f87e9.css.map": "/payatask/static/css/main.8a2f87e9.css.map",
-    "main.93a27f68.js.map": "/payatask/static/js/main.93a27f68.js.map"
+    "main.05511676.js.map": "/payatask/static/js/main.05511676.js.map"
   },
   "entrypoints": [
     "static/css/main.8a2f87e9.css",
-    "static/js/main.93a27f68.js"
+    "static/js/main.05511676.js"
   ]
 }
