@@ -148,7 +148,7 @@ const DataTablePure = () => {
             </div>
 
             <nav className='flex items-center justify-between pt-4 mx-8' aria-label='Table navigation'>
-                <DataRangeDisplay rangeStart={rangeStart} rangeEnd={rangeEnd} tableData={tableData} />
+                <DataRangeDisplay rangeStart={rangeStart} rangeEnd={rangeEnd} searchData={searchData} />
 
                 <ul className='inline-flex -space-x-px text-sm h-8'>
                     <button
