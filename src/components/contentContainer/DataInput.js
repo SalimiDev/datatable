@@ -26,7 +26,7 @@ const DataInput = () => {
 
     return (
         <div className='flex flex-col gap-3'>
-            <form onSubmit={submitHandler} className='h-9 flex flex-col items-center gap-5 mx-4 xl:flex-row xl:mx-72'>
+            <form onSubmit={submitHandler} className='h-9 flex flex-col items-center gap-5 mx-4 lg:flex-row lg:justify-center'>
                 <input
                     type='text'
                     name='url'
@@ -36,7 +36,7 @@ const DataInput = () => {
                     className='input'
                     required
                 />
-                <button type='submit' className='btn mt-10'>
+                <button type='submit' className='btn w-44  mt-12 lg:mt-0 flex justify-center'>
                     {isLoading && <LoadingSvg />}
                     {isLoading ? 'Loading...' : 'CHEACK DATA!'}
                 </button>
