@@ -18,11 +18,9 @@ const DataTablePure = () => {
     // states
     const [data, setData] = useState([]);
     const [searchData, setSearchData] = useState([]);
-    const [inputValue, setInputValue] = useState('');
-    const inputName = Object.keys(inputValue)[0] || '';
+    const [inputValues, setInputValues] = useState({});
     const tableData = generateTableData(data);
     const tableColumns = Object.keys(tableData[0] || []);
-    const singleColumn = tableColumns.filter(item => item.includes(inputName));
     const [currentColumn, setCurrentColumn] = useState('');
 
     useEffect(() => {
@@ -38,12 +36,17 @@ const DataTablePure = () => {
     // handle to search individually for each column
     const columnSearcher = e => {
         const { name, value } = e.target;
-        setInputValue({ [name]: value });
-    };
+        setInputValues(prevState => ({
+          ...prevState,
+          [name]: value
+        }));
+      };
+      
 
-    useEffect(() => {
-        setSearchData(searchHandler(inputValue[inputName], singleColumn, tableData));
-    }, [inputValue, setSearchData]);
+      useEffect(() => {
+        setSearchData(searchHandler(inputValues, tableColumns, tableData));
+      }, [inputValues, setSearchData]);
+      
 
     const defaultItemsPerPage = 5;
     const {
@@ -101,7 +104,7 @@ const DataTablePure = () => {
                                                 type='text'
                                                 name={key}
                                                 placeholder={key.toUpperCase()}
-                                                value={inputValue[key]}
+                                                value={inputValues[key]||''}
                                                 onChange={e => columnSearcher(e)}
                                             />
 
