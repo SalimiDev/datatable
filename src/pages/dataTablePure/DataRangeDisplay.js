@@ -1,4 +1,4 @@
-const DataRangeDisplay = ({ rangeStart, rangeEnd , searchData }) => {
+const DataRangeDisplay = ({ rangeStart, rangeEnd, searchData }) => {
     return (
         <span className='text-sm font-normal text-gray-500 dark:text-gray-400'>
             Showing{' '}

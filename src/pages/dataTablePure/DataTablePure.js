@@ -22,6 +22,7 @@ const DataTablePure = () => {
     const tableData = generateTableData(data);
     const tableColumns = Object.keys(tableData[0] || []);
     const [currentColumn, setCurrentColumn] = useState('');
+    const [globalSearchValue, setGlobalSearchValue] = useState('');
 
     useEffect(() => {
         const getStorageData = JSON.parse(localStorage.getItem('tableData'));
@@ -37,16 +38,14 @@ const DataTablePure = () => {
     const columnSearcher = e => {
         const { name, value } = e.target;
         setInputValues(prevState => ({
-          ...prevState,
-          [name]: value
+            ...prevState,
+            [name]: value,
         }));
-      };
-      
+    };
 
-      useEffect(() => {
-        setSearchData(searchHandler(inputValues, tableColumns, tableData));
-      }, [inputValues, setSearchData]);
-      
+    useEffect(() => {
+        setSearchData(searchHandler(inputValues, tableColumns, tableData, globalSearchValue));
+    }, [inputValues, setSearchData, globalSearchValue]);
 
     const defaultItemsPerPage = 5;
     const {
@@ -83,7 +82,12 @@ const DataTablePure = () => {
                     {/* ***********All data search bar************/}
 
                     <div className='w-80'>
-                        <SearchBar setSearchData={setSearchData} tableColumns={tableColumns} dataToSearch={tableData} />
+                        <SearchBar
+                            setSearchData={setSearchData}
+                            tableColumns={tableColumns}
+                            dataToSearch={tableData}
+                            setGlobalSearchValue={setGlobalSearchValue}
+                        />
                     </div>
                 </div>
 
@@ -104,7 +108,7 @@ const DataTablePure = () => {
                                                 type='text'
                                                 name={key}
                                                 placeholder={key.toUpperCase()}
-                                                value={inputValues[key]||''}
+                                                value={inputValues[key] || ''}
                                                 onChange={e => columnSearcher(e)}
                                             />
 
