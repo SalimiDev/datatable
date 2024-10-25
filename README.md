@@ -1,10 +1,10 @@
-# Paya Task React App
+# data table React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 # Demo 
 
-https://salimidev.github.io/payatask
+https://salimidev.github.io/datatable
 
 # Preview
 
